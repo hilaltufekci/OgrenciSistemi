@@ -1,0 +1,316 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="OgrenciSistemModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Dersler">
+          <Key>
+            <PropertyRef Name="DersNo" />
+          </Key>
+          <Property Name="DersNo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DersAdi" Type="varchar" MaxLength="50" />
+          <Property Name="AKTS" Type="varchar" MaxLength="50" />
+          <Property Name="Donem" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="KullaniciGiris">
+          <Key>
+            <PropertyRef Name="KullaniciNo" />
+          </Key>
+          <Property Name="KullaniciNo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="KullaniciAdi" Type="varchar" MaxLength="50" />
+          <Property Name="KullaniciSifre" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Notlar">
+          <Key>
+            <PropertyRef Name="NotNo" />
+          </Key>
+          <Property Name="NotNo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Vize" Type="int" />
+          <Property Name="Final" Type="int" />
+          <Property Name="Durum" Type="varchar" MaxLength="50" />
+          <Property Name="DersNo" Type="int" />
+        </EntityType>
+        <EntityType Name="Ogrenciler">
+          <Key>
+            <PropertyRef Name="OgrenciNo" />
+          </Key>
+          <Property Name="OgrenciNo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OgrenciAdi" Type="varchar" MaxLength="50" />
+          <Property Name="OgrenciSoyadi" Type="varchar" MaxLength="50" />
+          <Property Name="Fakulte" Type="varchar" MaxLength="50" />
+          <Property Name="Bolum" Type="varchar" MaxLength="50" />
+          <Property Name="Sinif" Type="int" />
+          <Property Name="DanismanHoca" Type="varchar" MaxLength="50" />
+          <Property Name="DersNo" Type="int" />
+        </EntityType>
+        <EntityType Name="Ogretmenler">
+          <Key>
+            <PropertyRef Name="OgretmenNo" />
+          </Key>
+          <Property Name="OgretmenNo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OgretmenAdi" Type="varchar" MaxLength="50" />
+          <Property Name="OgretmenSoyadi" Type="varchar" MaxLength="50" />
+          <Property Name="Bolum" Type="varchar" MaxLength="50" />
+          <Property Name="Unvan" Type="varchar" MaxLength="50" />
+          <Property Name="DersNo" Type="int" />
+        </EntityType>
+        <Association Name="FK_Notlar_Dersler">
+          <End Role="Dersler" Type="Self.Dersler" Multiplicity="0..1" />
+          <End Role="Notlar" Type="Self.Notlar" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Dersler">
+              <PropertyRef Name="DersNo" />
+            </Principal>
+            <Dependent Role="Notlar">
+              <PropertyRef Name="DersNo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Ogrenciler_Dersler">
+          <End Role="Dersler" Type="Self.Dersler" Multiplicity="0..1" />
+          <End Role="Ogrenciler" Type="Self.Ogrenciler" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Dersler">
+              <PropertyRef Name="DersNo" />
+            </Principal>
+            <Dependent Role="Ogrenciler">
+              <PropertyRef Name="DersNo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Ogretmenler_Dersler">
+          <End Role="Dersler" Type="Self.Dersler" Multiplicity="0..1" />
+          <End Role="Ogretmenler" Type="Self.Ogretmenler" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Dersler">
+              <PropertyRef Name="DersNo" />
+            </Principal>
+            <Dependent Role="Ogretmenler">
+              <PropertyRef Name="DersNo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="OgrenciSistemModelStoreContainer">
+          <EntitySet Name="Dersler" EntityType="Self.Dersler" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="KullaniciGiris" EntityType="Self.KullaniciGiris" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Notlar" EntityType="Self.Notlar" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Ogrenciler" EntityType="Self.Ogrenciler" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Ogretmenler" EntityType="Self.Ogretmenler" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Notlar_Dersler" Association="Self.FK_Notlar_Dersler">
+            <End Role="Dersler" EntitySet="Dersler" />
+            <End Role="Notlar" EntitySet="Notlar" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Ogrenciler_Dersler" Association="Self.FK_Ogrenciler_Dersler">
+            <End Role="Dersler" EntitySet="Dersler" />
+            <End Role="Ogrenciler" EntitySet="Ogrenciler" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Ogretmenler_Dersler" Association="Self.FK_Ogretmenler_Dersler">
+            <End Role="Dersler" EntitySet="Dersler" />
+            <End Role="Ogretmenler" EntitySet="Ogretmenler" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="OgrenciSistemModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Dersler">
+          <Key>
+            <PropertyRef Name="DersNo" />
+          </Key>
+          <Property Name="DersNo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DersAdi" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="AKTS" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Donem" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Notlars" Relationship="Self.FK_Notlar_Dersler" FromRole="Dersler" ToRole="Notlar" />
+          <NavigationProperty Name="Ogrencilers" Relationship="Self.FK_Ogrenciler_Dersler" FromRole="Dersler" ToRole="Ogrenciler" />
+          <NavigationProperty Name="Ogretmenlers" Relationship="Self.FK_Ogretmenler_Dersler" FromRole="Dersler" ToRole="Ogretmenler" />
+        </EntityType>
+        <EntityType Name="KullaniciGiri">
+          <Key>
+            <PropertyRef Name="KullaniciNo" />
+          </Key>
+          <Property Name="KullaniciNo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="KullaniciAdi" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="KullaniciSifre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Notlar">
+          <Key>
+            <PropertyRef Name="NotNo" />
+          </Key>
+          <Property Name="NotNo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Vize" Type="Int32" />
+          <Property Name="Final" Type="Int32" />
+          <Property Name="Durum" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DersNo" Type="Int32" />
+          <NavigationProperty Name="Dersler" Relationship="Self.FK_Notlar_Dersler" FromRole="Notlar" ToRole="Dersler" />
+        </EntityType>
+        <EntityType Name="Ogrenciler">
+          <Key>
+            <PropertyRef Name="OgrenciNo" />
+          </Key>
+          <Property Name="OgrenciNo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OgrenciAdi" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="OgrenciSoyadi" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Fakulte" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Bolum" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Sinif" Type="Int32" />
+          <Property Name="DanismanHoca" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DersNo" Type="Int32" />
+          <NavigationProperty Name="Dersler" Relationship="Self.FK_Ogrenciler_Dersler" FromRole="Ogrenciler" ToRole="Dersler" />
+        </EntityType>
+        <EntityType Name="Ogretmenler">
+          <Key>
+            <PropertyRef Name="OgretmenNo" />
+          </Key>
+          <Property Name="OgretmenNo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OgretmenAdi" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="OgretmenSoyadi" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Bolum" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Unvan" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DersNo" Type="Int32" />
+          <NavigationProperty Name="Dersler" Relationship="Self.FK_Ogretmenler_Dersler" FromRole="Ogretmenler" ToRole="Dersler" />
+        </EntityType>
+        <Association Name="FK_Notlar_Dersler">
+          <End Role="Dersler" Type="Self.Dersler" Multiplicity="0..1" />
+          <End Role="Notlar" Type="Self.Notlar" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Dersler">
+              <PropertyRef Name="DersNo" />
+            </Principal>
+            <Dependent Role="Notlar">
+              <PropertyRef Name="DersNo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Ogrenciler_Dersler">
+          <End Role="Dersler" Type="Self.Dersler" Multiplicity="0..1" />
+          <End Role="Ogrenciler" Type="Self.Ogrenciler" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Dersler">
+              <PropertyRef Name="DersNo" />
+            </Principal>
+            <Dependent Role="Ogrenciler">
+              <PropertyRef Name="DersNo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Ogretmenler_Dersler">
+          <End Role="Dersler" Type="Self.Dersler" Multiplicity="0..1" />
+          <End Role="Ogretmenler" Type="Self.Ogretmenler" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Dersler">
+              <PropertyRef Name="DersNo" />
+            </Principal>
+            <Dependent Role="Ogretmenler">
+              <PropertyRef Name="DersNo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="OgrenciSistemEntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Derslers" EntityType="Self.Dersler" />
+          <EntitySet Name="KullaniciGiris" EntityType="Self.KullaniciGiri" />
+          <EntitySet Name="Notlars" EntityType="Self.Notlar" />
+          <EntitySet Name="Ogrencilers" EntityType="Self.Ogrenciler" />
+          <EntitySet Name="Ogretmenlers" EntityType="Self.Ogretmenler" />
+          <AssociationSet Name="FK_Notlar_Dersler" Association="Self.FK_Notlar_Dersler">
+            <End Role="Dersler" EntitySet="Derslers" />
+            <End Role="Notlar" EntitySet="Notlars" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Ogrenciler_Dersler" Association="Self.FK_Ogrenciler_Dersler">
+            <End Role="Dersler" EntitySet="Derslers" />
+            <End Role="Ogrenciler" EntitySet="Ogrencilers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Ogretmenler_Dersler" Association="Self.FK_Ogretmenler_Dersler">
+            <End Role="Dersler" EntitySet="Derslers" />
+            <End Role="Ogretmenler" EntitySet="Ogretmenlers" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="OgrenciSistemModelStoreContainer" CdmEntityContainer="OgrenciSistemEntities1">
+          <EntitySetMapping Name="Derslers">
+            <EntityTypeMapping TypeName="OgrenciSistemModel.Dersler">
+              <MappingFragment StoreEntitySet="Dersler">
+                <ScalarProperty Name="DersNo" ColumnName="DersNo" />
+                <ScalarProperty Name="DersAdi" ColumnName="DersAdi" />
+                <ScalarProperty Name="AKTS" ColumnName="AKTS" />
+                <ScalarProperty Name="Donem" ColumnName="Donem" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="KullaniciGiris">
+            <EntityTypeMapping TypeName="OgrenciSistemModel.KullaniciGiri">
+              <MappingFragment StoreEntitySet="KullaniciGiris">
+                <ScalarProperty Name="KullaniciNo" ColumnName="KullaniciNo" />
+                <ScalarProperty Name="KullaniciAdi" ColumnName="KullaniciAdi" />
+                <ScalarProperty Name="KullaniciSifre" ColumnName="KullaniciSifre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Notlars">
+            <EntityTypeMapping TypeName="OgrenciSistemModel.Notlar">
+              <MappingFragment StoreEntitySet="Notlar">
+                <ScalarProperty Name="NotNo" ColumnName="NotNo" />
+                <ScalarProperty Name="Vize" ColumnName="Vize" />
+                <ScalarProperty Name="Final" ColumnName="Final" />
+                <ScalarProperty Name="Durum" ColumnName="Durum" />
+                <ScalarProperty Name="DersNo" ColumnName="DersNo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Ogrencilers">
+            <EntityTypeMapping TypeName="OgrenciSistemModel.Ogrenciler">
+              <MappingFragment StoreEntitySet="Ogrenciler">
+                <ScalarProperty Name="OgrenciNo" ColumnName="OgrenciNo" />
+                <ScalarProperty Name="OgrenciAdi" ColumnName="OgrenciAdi" />
+                <ScalarProperty Name="OgrenciSoyadi" ColumnName="OgrenciSoyadi" />
+                <ScalarProperty Name="Fakulte" ColumnName="Fakulte" />
+                <ScalarProperty Name="Bolum" ColumnName="Bolum" />
+                <ScalarProperty Name="Sinif" ColumnName="Sinif" />
+                <ScalarProperty Name="DanismanHoca" ColumnName="DanismanHoca" />
+                <ScalarProperty Name="DersNo" ColumnName="DersNo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Ogretmenlers">
+            <EntityTypeMapping TypeName="OgrenciSistemModel.Ogretmenler">
+              <MappingFragment StoreEntitySet="Ogretmenler">
+                <ScalarProperty Name="OgretmenNo" ColumnName="OgretmenNo" />
+                <ScalarProperty Name="OgretmenAdi" ColumnName="OgretmenAdi" />
+                <ScalarProperty Name="OgretmenSoyadi" ColumnName="OgretmenSoyadi" />
+                <ScalarProperty Name="Bolum" ColumnName="Bolum" />
+                <ScalarProperty Name="Unvan" ColumnName="Unvan" />
+                <ScalarProperty Name="DersNo" ColumnName="DersNo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
